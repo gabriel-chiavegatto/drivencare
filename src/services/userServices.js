@@ -1,12 +1,15 @@
+import doctorRepositories from "../repositories/doctorRepositories.js";
+import patientRepositories from "../repositories/patientRepositories.js";
+
 async function create({ type, name, email, password, crm, cpf, phone, locale }) {
-    if (!crm && !cpf) throw new Error
+    if (!type || (!crm && !cpf)) throw new Error
     if (crm) {
         const { rowCount } = await doctorRepositories.findByEmail(email)
         const { rowCount: crmRowCount } = await doctorRepositories.findByCrm(crm)
         if (rowCount || crmRowCount) throw new Error
 
         const hashPassword = await bcrypt.hash(password,10);
-        await doctorRepositories.create({name, email, password: hashPassword, crm, specialty})
+        await doctorRepositories.create({name, email, password: hashPassword, crm, specialty, locale})
     }
     if (cpf) {
         const { rowCount } = await patientRepositories.findByEmail(email)
