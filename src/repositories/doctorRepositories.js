@@ -15,8 +15,15 @@ export async function findByEmail(email){
 
 export async function findByCrm(crm){
     return await connectionDb.query(`
-    SELECT * FROM doctors WHERE crm=$1
+        SELECT * FROM doctors WHERE crm=$1
     `,[crm]);
 }
 
-export default { create, findByCrm, findByEmail }
+export async function createSession({token, doctorId}){
+    return await connectionDb.query(`
+        INSERT INTO "doctorSessions" (token, "doctorId")
+        VALUES($1,$2)
+    `, [token, doctorId]);
+}
+
+export default { create, findByCrm, findByEmail, createSession}

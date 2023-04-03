@@ -19,5 +19,11 @@ async function findByCpf(cpf) {
         WHERE cpf = $1
     `, [cpf])
 }
+async function createSession({token, patientId}){
+    return await connectionDb.query(`
+        INSERT INTO "patienSessions" (token, "patientId")
+        VALUES ($1,$2)
+    `,[token, patientId])
+}
 
-export default {create, findByCpf, findByEmail}
+export default {create, findByCpf, findByEmail, createSession}
