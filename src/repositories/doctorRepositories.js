@@ -19,4 +19,4 @@ export async function findByCrm(crm){
     `,[crm]);
 }
 
-export default { create }
+export default { create, findByCrm, findByEmail }

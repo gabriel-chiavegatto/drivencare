@@ -8,5 +8,6 @@ export const userSchema = joi.object({
     crm: joi.string(),
     cpf: joi.string(),
     phone: joi.string(),
-    locale: joi.string()
+    locale: joi.string(),
+    specialty: joi.string()
 });
