@@ -25,5 +25,16 @@ async function createSession({token, patientId}){
         VALUES ($1,$2)
     `,[token, patientId])
 }
+export async function findSessionByToken(token) {
+    return await connectionDb.query(`
+        SELECT * FROM "patienSessions" WHERE token = $1
+    `,[token])
+}
+export async function findById(patientId){
+    return await connectionDb.query(`
+        SELECT * FROM patients WHERE id=$1
+    `, [patientId])
+}
 
-export default {create, findByCpf, findByEmail, createSession}
+
+export default {create, findByCpf, findByEmail, createSession, findSessionByToken, findById}
